@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace IntersectingRectangles.Helpers
 {
-    //
-    //  This Class is used for Deep Copying an object and avoid reference issues
-    //
+    /// <summary>
+    ///     This Class is used for Deep Copying an object and avoid reference issues
+    /// </summary>
     public static class ObjectExtensions
     {
         private static readonly MethodInfo CloneMethod = typeof(Object).GetMethod("MemberwiseClone", BindingFlags.NonPublic | BindingFlags.Instance);
