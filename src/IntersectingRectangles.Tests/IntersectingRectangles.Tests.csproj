@@ -22,7 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IntersectingRectangles\IntersectingRectangles.csproj" />
-    <None Include="Data\*.json">
+    <None Include="Data\IntersectionFinder\*.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\JsonFileVerifications\*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

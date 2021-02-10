@@ -204,5 +204,26 @@ namespace IntersectingRectangles.Classes
 
 			return coordinates;
 		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+				return false;
+
+			return Equals(obj as Rectangle);
+		}
+
+		public bool Equals(Rectangle rectangle)
+		{
+			if (x == rectangle.x &&
+				y == rectangle.y &&
+				deltaX == rectangle.deltaX &&
+				deltaY == rectangle.deltaY &&
+				id == rectangle.id)
+			{
+				return true;
+			}
+
+			return false;
+		}
 	}
 }
