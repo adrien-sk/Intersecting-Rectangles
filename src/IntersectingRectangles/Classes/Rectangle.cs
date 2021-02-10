@@ -6,16 +6,15 @@ using System.Text.Json.Serialization;
 namespace IntersectingRectangles.Classes
 {
 	/// <summary>
-	///		Object representing a Rectangle
-	///		Intersections are Rectangles as well
+	///	Object representing a Rectangle. 
+	///		Imported rectangle have an ID
+	///	Intersections are Rectangles as well
+	///		Intersections have involved rectangles
 	/// </summary>
 	class Rectangle
 	{
-		/// <summary>
-		///		Auto-incremented ID
-		/// </summary>
-		[JsonIgnore]
-		public int id { get; set; }
+		//	Auto-incremented ID
+		private int id { get; set; }
 
 		[JsonPropertyName("x")]
 		public double x { get; set; }
@@ -28,12 +27,13 @@ namespace IntersectingRectangles.Classes
 
 		[JsonPropertyName("delta_y")]
 		public double deltaY { get; set; }
-
-		public List<Rectangle> overlappingRectangles { get; set; }
+		
+		//	List of the involved rectangles for an intersection rectangle
+		private List<int> involvedRectangles { get; set; }
 
 
 		/// <summary>
-		///		Constructor for JSON Deserializer
+		///	Constructor for JSON Deserializer
 		/// </summary>
 		public Rectangle()
 		{
@@ -41,7 +41,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///		Constructor
+		///	Constructor with Rectangle object
 		/// </summary>
 		/// <param name="rectangle">A Rectangle Object</param>
 		public Rectangle(Rectangle rectangle)
@@ -51,11 +51,11 @@ namespace IntersectingRectangles.Classes
 			y = rectangle.y;
 			deltaX = rectangle.deltaX;
 			deltaY = rectangle.deltaY;
-			overlappingRectangles = new List<Rectangle>();
+			involvedRectangles = new List<int>();
 		}
 
 		/// <summary>
-		///		Constructor
+		///	Constructor with Rectangle values
 		/// </summary>
 		/// <param name="x">X position</param>
 		/// <param name="y">Y position</param>
@@ -68,14 +68,63 @@ namespace IntersectingRectangles.Classes
 			this.y = y;
 			this.deltaX = deltaX;
 			this.deltaY = deltaY;
-			overlappingRectangles = new List<Rectangle>();
+			involvedRectangles = new List<int>();
 		}
 
 		/// <summary>
-		///		Verify if the Current rectangle intersect with the Parameter rectangle
+		/// Public Getter for ID
+		/// </summary>
+		/// <returns></returns>
+		public int GetId()
+		{
+			return id;
+		}
+
+		/*
+		public double GetX()
+		{
+			return x;
+		}
+		public double GetY()
+		{
+			return y;
+		}
+		public double GetDeltaX()
+		{
+			return deltaX;
+		}
+		public double GetDeltaY()
+		{
+			return deltaY;
+		}*/
+
+		/// <summary>
+		/// Public Getter for InvolvedRectangles
+		/// </summary>
+		/// <returns></returns>
+		public List<int> GetInvolvedRectangles()
+		{
+			return involvedRectangles;
+		}
+
+		/// <summary>
+		/// Is the provided rectangle ID involved in the current intersection ?
+		/// </summary>
+		/// <param name="rectangleID"></param>
+		/// <returns>True if is the rectangle is involved</returns>
+		public bool IsInvolvedInIntersection(int rectangleID)
+		{
+			if (involvedRectangles.Contains(rectangleID))
+				return true;
+			else
+				return false;
+		}
+
+		/// <summary>
+		///	Verify if the Current rectangle intersect with the provided rectangle
 		/// </summary>
 		/// <param name="otherRectangle"></param>
-		/// <returns>Boolean</returns>
+		/// <returns>True if there is an intersection</returns>
 		public bool IntersectWith(Rectangle otherRectangle)
 		{
 			double newX = Math.Max(x, otherRectangle.x);
@@ -90,10 +139,10 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///		Get the intersection rectangle between Current rectangle and Parameter rectangle
+		///	Get the intersection rectangle between Current rectangle and Parameter rectangle
 		/// </summary>
 		/// <param name="otherRectangle"></param>
-		/// <returns>The intersection rectangle</returns>
+		/// <returns>The intersection rectangle object</returns>
 		public Rectangle GetIntersection(Rectangle otherRectangle)
 		{
 			double newX = Math.Max(x, otherRectangle.x);
@@ -107,42 +156,43 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///		Add an Overlapping rectangle
+		///	Add an involved rectangle for this intersection
 		/// </summary>
 		/// <param name="rectangle"></param>
-		public void AddOverlappingRectangles(Rectangle rectangle)
+		public void AddInvolvedRectangles(int rectangleID)
 		{
-			overlappingRectangles.Add(rectangle);
+			involvedRectangles.Add(rectangleID);
 		}
 
 		/// <summary>
-		///		Add list of Overlapping rectangles
+		///	Add a list of involved rectangles
 		/// </summary>
 		/// <param name="rectangles"></param>
-		public void AddOverlappingRectangles(List<Rectangle> rectangles)
+		public void AddInvolvedRectangles(List<int> rectanglesIDs)
 		{
-			overlappingRectangles = rectangles;
+			if(rectanglesIDs != null)
+				involvedRectangles = rectanglesIDs;
 		}
 
 		/// <summary>
-		///		Return the informations about the current Rectangle
-		///		Add intersecting rectangles if it's an intersection
+		///	Return the informations about the current Rectangle
+		///	Add involved rectangles if it's an intersection
 		/// </summary>
 		/// <param name="intersectionId"></param>
 		/// <returns>
-		///		A string like : 
-		///			1: Rectangle at (100,100), delta_x=250, delta_y=80.
-		///				or
-		///			1: Between rectangle 1 and 3 at (140,160), delta_x=210, delta_y=20.
+		///	A string like : 
+		///		1: Rectangle at (100,100), delta_x=250, delta_y=80.
+		///			or
+		///		1: Between rectangle 1 and 3 at (140,160), delta_x=210, delta_y=20.
 		/// </returns>
 		public string GetCoordinates(int intersectionId = 0)
 		{
 			string coordinates = "\t";
 
-			if (overlappingRectangles != null && overlappingRectangles.Count > 0)
+			if (involvedRectangles != null && involvedRectangles.Count > 0)
 			{
 				coordinates += intersectionId + ": Between rectangle ";
-				coordinates += string.Join(", ", overlappingRectangles.Select(t => t.id));
+				coordinates += string.Join(", ", involvedRectangles.Select(t => t));
 
 			}
 			else
@@ -153,33 +203,6 @@ namespace IntersectingRectangles.Classes
 			coordinates += " at (" + x + "," + y + "), delta_x=" + deltaX + ", delta_y=" + deltaY + "." + Environment.NewLine;
 
 			return coordinates;
-		}
-
-		/// <summary>
-		///		An overriden Equals function
-		///		To compare object as Rectangle
-		/// </summary>
-		/// <param name="obj"></param>
-		/// <returns>Does the object Equals ?</returns>
-		public override bool Equals(object obj)
-		{
-			if (obj == null)
-				return false;
-
-			return Equals(obj as Rectangle);
-		}
-
-		public bool Equals(Rectangle rectangle)
-		{
-			if (x == rectangle.x &&
-				y == rectangle.y &&
-				deltaX == rectangle.deltaX &&
-				deltaY == rectangle.deltaY)
-			{
-				return true;
-			}
-
-			return false;
 		}
 	}
 }
