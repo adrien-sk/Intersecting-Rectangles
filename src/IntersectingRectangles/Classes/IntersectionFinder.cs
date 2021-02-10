@@ -24,22 +24,22 @@ namespace IntersectingRectangles.Classes
 	/// </summary>
 	class IntersectionFinder
 	{
-		//	List of the Rectangles from Json file
+		// List of the Rectangles from Json file
 		[JsonPropertyName("rects")]
 		public List<Rectangle> rectangles { get; set; }
 
-		//	Final list that stores all Intersections to output
+		// Final list that stores all Intersections to output
 		private List<Rectangle> intersections { get; set; }
 
-		//	List that stores new intersections found along processing, and requires to check if it has more rectangles overlapping
+		// List that stores new intersections found along processing, and requires to check if it has more rectangles overlapping
 		private List<Rectangle> intersectionsToVerify { get; set; }
 
-		//	Auto-incremented ID for Rectangles import
+		// Auto-incremented ID for Rectangles import
 		private static int nextId { get; set; }
 
 
 		/// <summary>
-		///	Constructor
+		/// Constructor
 		/// </summary>
 		public IntersectionFinder()
 		{
@@ -49,7 +49,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Method called in Rectangle Class for ID incrementing
+		/// Method called in Rectangle Class for ID incrementing
 		/// </summary>
 		/// <returns>Next available ID</returns>
 		public static int GetNextID()
@@ -69,11 +69,11 @@ namespace IntersectingRectangles.Classes
 
 			try
 			{
-				//	Get the Json and deserialize into an Object
+				// Get the Json and deserialize into an Object
 				var json = File.ReadAllText(jsonFilePath);
 				instance = JsonSerializer.Deserialize<IntersectionFinder>(json);
 
-				//	Remove all rectangles having null or negatives value
+				// Remove all rectangles having null or negatives value
 				List<Rectangle> temporaryList = ObjectExtensions.Copy(instance.rectangles);
 				foreach (Rectangle item in temporaryList)
 				{
@@ -83,11 +83,11 @@ namespace IntersectingRectangles.Classes
 					}
 				}
 
-				//	Limit the list to the first 10 elements
+				// Limit the list to the first 10 elements
 				if (instance.rectangles.Count() > 10)
 					instance.rectangles.RemoveRange(10, instance.rectangles.Count()-10);
 
-				//	If we have less than 2 rectangles, we exit here
+				// If we have less than 2 rectangles, we exit here
 				if (instance.rectangles.Count() < 2)
 				{
 					Console.WriteLine("There's not enough rectangles for having intersections.");
@@ -123,22 +123,22 @@ namespace IntersectingRectangles.Classes
 			{
 				foreach (Rectangle rectangleB in rectangles)
 				{
-					//	If : The pair is not the same rectangle && They have an intersection
+					// If : The pair is not the same rectangle && They have an intersection
 					if (rectangleA.GetId() != rectangleB.GetId() && rectangleA.IntersectWith(rectangleB))
 					{
-						//	Create a new Intersection Rectangle
+						// Create a new Intersection Rectangle
 						Rectangle newIntersection = new Rectangle(rectangleA.GetIntersection(rectangleB));
 
-						//	List the involved rectangles
+						// List the involved rectangles
 						newIntersection.AddInvolvedRectangles(rectangleA.GetId());
 						newIntersection.AddInvolvedRectangles(rectangleB.GetId());
 
-						//	If : we don't already have this intersection
+						// If : we don't already have this intersection
 						if (IsIntersectionDistinct(newIntersection))
 						{
-							//	Add the intersection rectangle to the list of intersections
+							// Add the intersection rectangle to the list of intersections
 							intersections.Add(newIntersection);
-							//	Add the intersection rectangle to the Verification list, Where we'll check if other rectangles are involved
+							// Add the intersection rectangle to the Verification list, Where we'll check if other rectangles are involved
 							intersectionsToVerify.Add(newIntersection);
 						}
 					}
@@ -151,26 +151,26 @@ namespace IntersectingRectangles.Classes
 		/// </summary>
 		private void FindIntersectionsWithMultipleRectangles()
 		{
-			//	While we have intersections to verify
+			// While we have intersections to verify
 			while (intersectionsToVerify.Any())
 			{
-				//	Take the first one
+				// Take the first one
 				Rectangle intersection = intersectionsToVerify.First();
 
-				//	For each rectangle from JSON
+				// For each rectangle from JSON
 				foreach (Rectangle rectangle in rectangles)
 				{
-					//	If : The rectangle is not yet involved && It has an intersection with current intersection
+					// If : The rectangle is not yet involved && It has an intersection with current intersection
 					if (!intersection.IsInvolvedInIntersection(rectangle.GetId()) && intersection.IntersectWith(rectangle))
 					{
-						//	Create a new intersection Rectangle
+						// Create a new intersection Rectangle
 						Rectangle newIntersection = intersection.GetIntersection(rectangle);
 
-						//	List the involved rectangles
+						// List the involved rectangles
 						newIntersection.AddInvolvedRectangles(ObjectExtensions.Copy(intersection.GetInvolvedRectangles()));
 						newIntersection.AddInvolvedRectangles(rectangle.GetId());
 
-						//	If : we don't already have this intersection
+						// If : we don't already have this intersection
 						if (IsIntersectionDistinct(newIntersection))
 						{
 							intersectionsToVerify.Add(newIntersection);
@@ -215,7 +215,7 @@ namespace IntersectingRectangles.Classes
 		/// <returns>Multiline string with informations</returns>
 		private string GetInformations()
 		{
-			//	Imported rectangles informations
+			// Imported rectangles informations
 			string informations = "Input:"+ Environment.NewLine;
 
 			foreach (Rectangle rectangle in rectangles)
@@ -223,7 +223,7 @@ namespace IntersectingRectangles.Classes
 				informations += rectangle.GetCoordinates();
 			}
 
-			//	Rectangles intersections informations
+			// Rectangles intersections informations
 			var i = 0;
 			informations += Environment.NewLine + Environment.NewLine +"Intersections:" + Environment.NewLine;
 

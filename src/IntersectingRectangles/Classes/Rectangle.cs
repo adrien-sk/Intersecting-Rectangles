@@ -13,7 +13,7 @@ namespace IntersectingRectangles.Classes
 	/// </summary>
 	class Rectangle
 	{
-		//	Auto-incremented ID
+		// Auto-incremented ID
 		private int id { get; set; }
 
 		[JsonPropertyName("x")]
@@ -28,12 +28,12 @@ namespace IntersectingRectangles.Classes
 		[JsonPropertyName("delta_y")]
 		public double deltaY { get; set; }
 		
-		//	List of the involved rectangles for an intersection rectangle
+		// List of the involved rectangles for an intersection rectangle
 		private List<int> involvedRectangles { get; set; }
 
 
 		/// <summary>
-		///	Constructor for JSON Deserializer
+		/// Constructor for JSON Deserializer
 		/// </summary>
 		public Rectangle()
 		{
@@ -41,7 +41,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Constructor with Rectangle object
+		/// Constructor with Rectangle object
 		/// </summary>
 		/// <param name="rectangle">A Rectangle Object</param>
 		public Rectangle(Rectangle rectangle)
@@ -55,7 +55,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Constructor with Rectangle values
+		/// Constructor with Rectangle values
 		/// </summary>
 		/// <param name="x">X position</param>
 		/// <param name="y">Y position</param>
@@ -121,7 +121,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Verify if the Current rectangle intersect with the provided rectangle
+		/// Verify if the Current rectangle intersect with the provided rectangle
 		/// </summary>
 		/// <param name="otherRectangle"></param>
 		/// <returns>True if there is an intersection</returns>
@@ -139,7 +139,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Get the intersection rectangle between Current rectangle and Parameter rectangle
+		/// Get the intersection rectangle between Current rectangle and Parameter rectangle
 		/// </summary>
 		/// <param name="otherRectangle"></param>
 		/// <returns>The intersection rectangle object</returns>
@@ -156,7 +156,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Add an involved rectangle for this intersection
+		/// Add an involved rectangle for this intersection
 		/// </summary>
 		/// <param name="rectangle"></param>
 		public void AddInvolvedRectangles(int rectangleID)
@@ -165,7 +165,7 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Add a list of involved rectangles
+		/// Add a list of involved rectangles
 		/// </summary>
 		/// <param name="rectangles"></param>
 		public void AddInvolvedRectangles(List<int> rectanglesIDs)
@@ -175,12 +175,12 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/// <summary>
-		///	Return the informations about the current Rectangle
-		///	Add involved rectangles if it's an intersection
+		/// Return the informations about the current Rectangle
+		/// Add involved rectangles if it's an intersection
 		/// </summary>
 		/// <param name="intersectionId"></param>
 		/// <returns>
-		///	A string like : 
+		/// A string like : 
 		///		1: Rectangle at (100,100), delta_x=250, delta_y=80.
 		///			or
 		///		1: Between rectangle 1 and 3 at (140,160), delta_x=210, delta_y=20.

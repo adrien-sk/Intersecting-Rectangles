@@ -17,7 +17,7 @@ namespace IntersectingRectangles.Helpers
 	/// </summary>
 	class JsonFileVerifications
 	{
-		//	Json Schema used to validate the Json structure
+		// Json Schema used to validate the Json structure
 		static JSchema jsonSchema = JSchema.Parse(@"
 			{
 				'type': 'object',
@@ -45,7 +45,7 @@ namespace IntersectingRectangles.Helpers
 				'additionalProperties': false
 			}");
 
-		//	Json example to display in case of a structure error
+		// Json example to display in case of a structure error
 		static string jsonExample = 
 		"{"+ System.Environment.NewLine+
 			"\t\"rects\": ["+ System.Environment.NewLine+

@@ -26,21 +26,21 @@ namespace IntersectingRectangles
 		{
 			try
 			{
-				//	Console input from user for the file path
+				// Console input from user for the file path
 				Console.WriteLine("Please enter/paste the path of your file :");
 				var jsonFilePath = @"" + Console.ReadLine();
 
-				//	Development Hardcoded path
-				//string jsonFilePath = @"C:/Users/Nadriel/source/repos/Intersecting-Rectangles/IntersectingRectangles/src/IntersectingRectangles/Data/data.json";
+				// Development Hardcoded path
+				// string jsonFilePath = @"C:/Users/Nadriel/source/repos/Intersecting-Rectangles/IntersectingRectangles/src/IntersectingRectangles/Data/data.json";
 
-				//	Verification of the Json file validity
+				// Verification of the Json file validity
 				if (!JsonFileVerifications.IsJsonFileValid(jsonFilePath))
 					return;
 
-				//	Creation of an IntersectionFinder Object by loading the validated Json path
+				// Creation of an IntersectionFinder Object by loading the validated Json path
 				IntersectionFinder intersectionFinderObject = IntersectionFinder.LoadJson(jsonFilePath);
 
-				//	If there is no issue : Find and Display all the intersections
+				// If there is no issue : Find and Display all the intersections
 				if (intersectionFinderObject != null)
 					Console.WriteLine(intersectionFinderObject.GetIntersections());
 				else
