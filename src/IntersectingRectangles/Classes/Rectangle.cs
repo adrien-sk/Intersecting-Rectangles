@@ -11,22 +11,22 @@ namespace IntersectingRectangles.Classes
 	///	Intersections are Rectangles as well
 	///		Intersections have involved rectangles
 	/// </summary>
-	class Rectangle
+	public class Rectangle
 	{
 		// Auto-incremented ID
 		private int id { get; set; }
 
 		[JsonPropertyName("x")]
-		public double x { get; set; }
+		public int x { get; set; }
 
 		[JsonPropertyName("y")]
-		public double y { get; set; }
+		public int y { get; set; }
 
 		[JsonPropertyName("delta_x")]
-		public double deltaX { get; set; }
+		public int deltaX { get; set; }
 
 		[JsonPropertyName("delta_y")]
-		public double deltaY { get; set; }
+		public int deltaY { get; set; }
 		
 		// List of the involved rectangles for an intersection rectangle
 		private List<int> involvedRectangles { get; set; }
@@ -61,7 +61,7 @@ namespace IntersectingRectangles.Classes
 		/// <param name="y">Y position</param>
 		/// <param name="deltaX">Width</param>
 		/// <param name="deltaY">Height</param>
-		public Rectangle(double x, double y, double deltaX, double deltaY)
+		public Rectangle(int x, int y, int deltaX, int deltaY)
 		{
 			id = 0;
 			this.x = x;
@@ -81,19 +81,19 @@ namespace IntersectingRectangles.Classes
 		}
 
 		/*
-		public double GetX()
+		public int GetX()
 		{
 			return x;
 		}
-		public double GetY()
+		public int GetY()
 		{
 			return y;
 		}
-		public double GetDeltaX()
+		public int GetDeltaX()
 		{
 			return deltaX;
 		}
-		public double GetDeltaY()
+		public int GetDeltaY()
 		{
 			return deltaY;
 		}*/
@@ -127,10 +127,10 @@ namespace IntersectingRectangles.Classes
 		/// <returns>True if there is an intersection</returns>
 		public bool IntersectWith(Rectangle otherRectangle)
 		{
-			double newX = Math.Max(x, otherRectangle.x);
-			double newY = Math.Max(y, otherRectangle.y);
-			double newDeltaX = Math.Min(x + deltaX, otherRectangle.x + otherRectangle.deltaX) - newX;
-			double newDeltaY = Math.Min(y + deltaY, otherRectangle.y + otherRectangle.deltaY) - newY;
+			int newX = Math.Max(x, otherRectangle.x);
+			int newY = Math.Max(y, otherRectangle.y);
+			int newDeltaX = Math.Min(x + deltaX, otherRectangle.x + otherRectangle.deltaX) - newX;
+			int newDeltaY = Math.Min(y + deltaY, otherRectangle.y + otherRectangle.deltaY) - newY;
 
 			if (newDeltaX <= 0 || newDeltaY <= 0)
 				return false;
@@ -145,10 +145,10 @@ namespace IntersectingRectangles.Classes
 		/// <returns>The intersection rectangle object</returns>
 		public Rectangle GetIntersection(Rectangle otherRectangle)
 		{
-			double newX = Math.Max(x, otherRectangle.x);
-			double newY = Math.Max(y, otherRectangle.y);
-			double newDeltaX = Math.Min(x + deltaX, otherRectangle.x + otherRectangle.deltaX) - newX;
-			double newDeltaY = Math.Min(y + deltaY, otherRectangle.y + otherRectangle.deltaY) - newY;
+			int newX = Math.Max(x, otherRectangle.x);
+			int newY = Math.Max(y, otherRectangle.y);
+			int newDeltaX = Math.Min(x + deltaX, otherRectangle.x + otherRectangle.deltaX) - newX;
+			int newDeltaY = Math.Min(y + deltaY, otherRectangle.y + otherRectangle.deltaY) - newY;
 
 			Rectangle intersection = new Rectangle(newX, newY, newDeltaX, newDeltaY);
 
@@ -159,7 +159,7 @@ namespace IntersectingRectangles.Classes
 		/// Add an involved rectangle for this intersection
 		/// </summary>
 		/// <param name="rectangle"></param>
-		public void AddInvolvedRectangles(int rectangleID)
+		public void AddInvolvedRectangle(int rectangleID)
 		{
 			involvedRectangles.Add(rectangleID);
 		}

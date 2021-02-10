@@ -22,7 +22,7 @@ namespace IntersectingRectangles.Classes
 	///	- Fourth :	When don't have anymore "intersectionsToVerify", we can return all the informations about the Rectangles and the Intersections.
 	///	
 	/// </summary>
-	class IntersectionFinder
+	public class IntersectionFinder
 	{
 		// List of the Rectangles from Json file
 		[JsonPropertyName("rects")]
@@ -130,8 +130,8 @@ namespace IntersectingRectangles.Classes
 						Rectangle newIntersection = new Rectangle(rectangleA.GetIntersection(rectangleB));
 
 						// List the involved rectangles
-						newIntersection.AddInvolvedRectangles(rectangleA.GetId());
-						newIntersection.AddInvolvedRectangles(rectangleB.GetId());
+						newIntersection.AddInvolvedRectangle(rectangleA.GetId());
+						newIntersection.AddInvolvedRectangle(rectangleB.GetId());
 
 						// If : we don't already have this intersection
 						if (IsIntersectionDistinct(newIntersection))
@@ -168,7 +168,7 @@ namespace IntersectingRectangles.Classes
 
 						// List the involved rectangles
 						newIntersection.AddInvolvedRectangles(ObjectExtensions.Copy(intersection.GetInvolvedRectangles()));
-						newIntersection.AddInvolvedRectangles(rectangle.GetId());
+						newIntersection.AddInvolvedRectangle(rectangle.GetId());
 
 						// If : we don't already have this intersection
 						if (IsIntersectionDistinct(newIntersection))
