@@ -15,7 +15,7 @@ namespace IntersectingRectangles.Helpers
 	///		- A valid json type
 	///		- A valid structure following a specific format
 	/// </summary>
-	class JsonFileVerifications
+	public class JsonFileVerifications
 	{
 		// Json Schema used to validate the Json structure
 		static JSchema jsonSchema = JSchema.Parse(@"
@@ -95,6 +95,15 @@ namespace IntersectingRectangles.Helpers
 				Console.WriteLine("File not found : Please ensure you enter the correct path.");
 				return false;
 			}
+			catch (DirectoryNotFoundException)
+			{
+				Console.WriteLine("File not found : Please ensure you enter the correct path.");
+				return false;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 
 			return true;
 		}
@@ -127,7 +136,8 @@ namespace IntersectingRectangles.Helpers
 			}
 			catch (Exception)
 			{
-				throw;
+				Console.WriteLine("Invalid JSON format.");
+				return false;
 			}
 			return true;
 		}

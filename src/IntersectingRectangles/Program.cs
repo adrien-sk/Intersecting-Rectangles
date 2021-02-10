@@ -27,11 +27,11 @@ namespace IntersectingRectangles
 			try
 			{
 				// Console input from user for the file path
-				Console.WriteLine("Please enter/paste the path of your file :");
-				var jsonFilePath = @"" + Console.ReadLine();
+				//Console.WriteLine("Please enter/paste the path of your file :");
+				//var jsonFilePath = @"" + Console.ReadLine();
 
 				// Development Hardcoded path
-				// string jsonFilePath = @"C:/Users/Nadriel/source/repos/Intersecting-Rectangles/IntersectingRectangles/src/IntersectingRectangles/Data/data.json";
+				string jsonFilePath = Path.Combine(Environment.CurrentDirectory, @"Data", "data.json");
 
 				// Verification of the Json file validity
 				if (!JsonFileVerifications.IsJsonFileValid(jsonFilePath))

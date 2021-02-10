@@ -3,12 +3,8 @@ using Xunit;
 
 namespace IntersectingRectangles.Tests
 {
-	public class UnitTest1
+	public class RectangleTests
 	{
-		[Fact]
-		public void Test1()
-		{
-
-		}
+		
 	}
 }
