@@ -105,7 +105,7 @@ It happens in multiple steps :
 
 ### Rectangle.cs
 
-This class represents a **Rectangle** or an **Intersection**
+This class represents a **Rectangle** or an **Intersection**.
 **Rectangles** are given an id at initialization, while **Intersections** are having a list of involved rectangles
 It holds methods for comparison and checking of intersections of 2 rectangles.
 
