@@ -80,24 +80,6 @@ namespace IntersectingRectangles.Classes
 			return id;
 		}
 
-		/*
-		public int GetX()
-		{
-			return x;
-		}
-		public int GetY()
-		{
-			return y;
-		}
-		public int GetDeltaX()
-		{
-			return deltaX;
-		}
-		public int GetDeltaY()
-		{
-			return deltaY;
-		}*/
-
 		/// <summary>
 		/// Public Getter for InvolvedRectangles
 		/// </summary>
@@ -204,6 +186,8 @@ namespace IntersectingRectangles.Classes
 
 			return coordinates;
 		}
+
+		// Redefine Equals and GetHashCode for Object comparison
 		public override bool Equals(object obj)
 		{
 			if (obj == null)
@@ -224,6 +208,11 @@ namespace IntersectingRectangles.Classes
 			}
 
 			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
 		}
 	}
 }

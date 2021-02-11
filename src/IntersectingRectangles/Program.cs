@@ -28,7 +28,6 @@ namespace IntersectingRectangles
 			{
 				// Console input from user for the file path
 				Console.WriteLine("Please enter/paste the path of your file :");
-				Console.WriteLine("(If you don't have a file, You can use example data by typing : Data/data.json)");
 				var jsonFilePath = @"" + Console.ReadLine();
 				Console.WriteLine();
 

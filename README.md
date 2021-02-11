@@ -17,6 +17,13 @@ It will calculate each possible intersections between all the provided rectangle
 	]  
 }
 ```
+The input Json follows the rules : 
+
+- Have at least 2 rectangles.
+- Rectangles after the 10th first will be discarded.
+- Rectangles with negative or null values will be discarded.
+- It needs to have the same structure.
+
 ## Output result
 ```sh
 Input:
@@ -39,12 +46,12 @@ Intersections:
 If you have Visual Studio installed, you should be able to easily do the following from Visual Studio directly :
 - Explore the code.
 - Build the application.
-- Run the "IntersectingRectangles" application project.
-- Run the "IntersectingRectangles.Tests" Unit tests project.
+- Run the **IntersectingRectangles.Tests** Unit tests project.
+- Run the **IntersectingRectangles** application project. 
 
 ## Without Visual Studio
 
-Clone this repository and open the folder
+With command line : Clone this repository and open the folder
 ```sh
 git clone https://github.com/adrien-sk/Intersecting-Rectangles.git
 ```
@@ -52,10 +59,24 @@ git clone https://github.com/adrien-sk/Intersecting-Rectangles.git
 cd Intersecting-Rectangles
 ```
 
-### Run the application
+### Build app
+
+```sh
+dotnet build
+```
+
+### Run app
 
 ```sh
 dotnet run --project src/IntersectingRectangles
+```
+If you don't have a file for testing, you can use example data by typing the following :
+```sh
+src/IntersectingRectangles/Data/data.json
+```
+From debug in Visual Studio, the example data json is in a different place :
+```sh
+Data/data.json
 ```
 
 ### Run tests
@@ -63,3 +84,30 @@ dotnet run --project src/IntersectingRectangles
 ```sh
 dotnet test src/IntersectingRectangles.Tests
 ```
+
+## Structure
+
+### Program.cs
+
+Application is launched from **Program.cs**, where we :
+- Validate the input Json file
+- Create the **IntersectionFinder** object that holds the rectangles
+- Call the search for the intersections from the **IntersectionFinder** and displays to the user
+
+### IntersectionFinder.cs
+
+This class holds a list for rectangles and intersections, and is processing the search of the intersections.
+It happens in multiple steps :
+- We instantiate the object by loading and serializing the Json, and the **rectangles** list is populated and verified.
+- We first find all the intersections involving exactly **2** rectangles, and we store them in a list for the next check.
+- We verify for each item in this list, if another rectangle is involved in the intersection.
+	- If a new intersection is found, we push it in the list so we can again check if more rectangles comes in.
+
+### Rectangle.cs
+
+This class represents a **Rectangle** or an **Intersection**
+**Rectangles** are given an id at initialization, while **Intersections** are having a list of involved rectangles
+It holds methods for comparison and checking of intersections of 2 rectangles.
+
+## Licence
+MIT
